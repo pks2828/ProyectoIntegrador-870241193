@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import {
   ScrollView,
-  Button,
+  Text,
   View,
   Alert,
   ActivityIndicator,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import { TextInput } from "react-native";
 import { db } from "../firebaseConfig";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
-import { StackScreenProps } from '@react-navigation/stack';
+import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/types";
 
-type Props = StackScreenProps<RootStackParamList, 'UserDetailScreen'>;
+type Props = StackScreenProps<RootStackParamList, "UserDetailScreen">;
 
 const UserDetailScreen: React.FC<Props> = ({ route, navigation }) => {
   const initialState = {
@@ -126,18 +127,18 @@ const UserDetailScreen: React.FC<Props> = ({ route, navigation }) => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <Button
-          title="Delete"
+        <TouchableOpacity
+          style={[styles.button, styles.deleteButton]} // Aplicar estilos para botón de borrar
           onPress={() => openConfirmationAlert()}
-          color="#E57373" // Color rojo claro para eliminar
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Update"
+        >
+          <Text style={styles.buttonText}>Borrar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, styles.updateButton]} // Aplicar estilos para botón de actualizar
           onPress={() => updateUser()}
-          color="#4CAF50" // Color verde para actualizar
-        />
+        >
+          <Text style={styles.buttonText}>Actualizar</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -147,27 +148,53 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f5f5f5', // Fondo gris claro
+    backgroundColor: "#FFFFFF", // White background
   },
   loader: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#FFFFFF",
   },
   inputContainer: {
-    marginBottom: 15,
+    marginBottom: 20, // Increased margin
+    padding: 10, // Added padding
   },
   input: {
     padding: 10,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#cccccc",
-    backgroundColor: "#ffffff",
-    color: "#333333", // Color del texto gris oscuro
+    borderColor: "#CCCCCC",
+    backgroundColor: "#FFFFFF",
+    color: "#333333", // Darker gray text color
+    fontSize: 16, // Increased font size
   },
   buttonContainer: {
-    marginBottom: 15,
+    flexDirection: "row",
+    justifyContent: "space-around", // Espacio entre botones
+    marginVertical: 20,
+  },
+  button: {
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 5, // Sombra para Android
+  },
+  deleteButton: {
+    backgroundColor: "#E57373", // Color rojo claro para eliminar
+  },
+  updateButton: {
+    backgroundColor: "#4CAF50", // Color verde para actualizar
+  },
+  buttonText: {
+    color: "#fff", // Color de texto blanco
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

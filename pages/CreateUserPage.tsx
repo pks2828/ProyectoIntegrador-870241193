@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { Button, View, StyleSheet, TextInput, ScrollView, Alert } from "react-native";
+import { Text, View, StyleSheet, TextInput, ScrollView, Alert, TouchableOpacity } from "react-native";
 import { db } from "../firebaseConfig"; // Asegúrate de que la ruta sea correcta
 import { collection, addDoc } from "firebase/firestore";
 import { CreateUserScreenNavigationProp } from "../types/types";
-
 
 interface Props {
   navigation: CreateUserScreenNavigationProp;
 }
 
-const CreateUserPage: React.FC<Props> = ({ navigation })=> {
+const CreateUserPage: React.FC<Props> = ({ navigation }) => {
   const initialState = {
     name: "",
     age: "",
@@ -50,53 +49,60 @@ const CreateUserPage: React.FC<Props> = ({ navigation })=> {
   return (
     <ScrollView style={styles.container}>
       {/* Name Input */}
-      <View style={styles.inputGroup}>
+      <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Name"
+          placeholder="Nombre Completo"
           onChangeText={(value) => handleChangeText(value, "name")}
           value={state.name}
+          style={styles.input}
         />
       </View>
 
       {/* Age Input */}
-      <View style={styles.inputGroup}>
+      <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Age"
+          placeholder="Edad"
           keyboardType="numeric" // Asegúrate de que el teclado sea numérico
           onChangeText={(value) => handleChangeText(value, "age")}
           value={state.age}
+          style={styles.input}
         />
       </View>
 
       {/* City Input */}
-      <View style={styles.inputGroup}>
+      <View style={styles.inputContainer}>
         <TextInput
-          placeholder="City"
+          placeholder="Estado"
           onChangeText={(value) => handleChangeText(value, "city")}
           value={state.city}
+          style={styles.input}
         />
       </View>
 
       {/* ID Input */}
-      <View style={styles.inputGroup}>
+      <View style={styles.inputContainer}>
         <TextInput
-          placeholder="ID"
+          placeholder="Matricula"
           onChangeText={(value) => handleChangeText(value, "id")}
           value={state.id}
+          style={styles.input}
         />
       </View>
 
       {/* Occupation Input */}
-      <View style={styles.inputGroup}>
+      <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Occupation"
+          placeholder="Ocupación"
           onChangeText={(value) => handleChangeText(value, "occupation")}
           value={state.occupation}
+          style={styles.input}
         />
       </View>
 
-      <View style={styles.button}>
-        <Button title="Save User" onPress={saveNewUser} />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={saveNewUser}>
+          <Text style={styles.buttonText}>Guardar Usuario</Text>
+        </TouchableOpacity>      
       </View>
     </ScrollView>
   );
@@ -105,17 +111,42 @@ const CreateUserPage: React.FC<Props> = ({ navigation })=> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 35,
+    padding: 20,
+    backgroundColor: "#FFFFFF",
   },
-  inputGroup: {
-    flex: 1,
-    padding: 0,
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+  inputContainer: {
+    marginBottom: 20,
+    padding: 10,
+  },
+  input: {
+    padding: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
+    backgroundColor: "#FFFFFF",
+    color: "#333333",
+    fontSize: 16,
+  },
+  buttonContainer: {
+    borderRadius: 8,
+    overflow: 'hidden', // Ensures button corners are rounded
   },
   button: {
-    marginTop: 15,
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    backgroundColor: "#2196F3",
+    elevation: 5, // Adds shadow for Android
+    shadowColor: "#000000", // Shadow color for iOS
+    shadowOffset: { width: 0, height: 2 }, // Shadow offset
+    shadowOpacity: 0.1, // Shadow opacity
+    shadowRadius: 2, // Shadow radius
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    textAlign: "center",
+    fontWeight: "bold",
   },
 });
 

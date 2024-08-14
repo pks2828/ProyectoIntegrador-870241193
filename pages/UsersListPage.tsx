@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, View, ScrollView } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
-import { ScrollView } from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
-import { FirebaseFirestoreTypes } from "@react-native-firebase/firestore"; // Asegúrate de que esta importación esté disponible
+import { FirebaseFirestoreTypes } from "@react-native-firebase/firestore";
 import { collection, onSnapshot, QuerySnapshot, DocumentData } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
@@ -27,6 +26,8 @@ interface User {
   city: string;
   occupation: string;
 }
+
+const profileImage = require('../assets/uifaces-abstract-image.jpg');
 
 const UsersListPage: React.FC<UsersListProps> = ({ navigation }) => {
   const [users, setUsers] = useState<User[]>([]);
@@ -55,11 +56,12 @@ const UsersListPage: React.FC<UsersListProps> = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.buttonContainer}>
-        <Button
+        <TouchableOpacity
           onPress={() => navigation.navigate("CreateUserScreen")}
-          title="Crear Nuevo Usuario"
-          color="#000" // Cambia el color del texto del botón
-        />
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>Crear Nuevo Usuario</Text>
+        </TouchableOpacity>
       </View>
       {users.map((user) => (
         <ListItem
@@ -73,9 +75,7 @@ const UsersListPage: React.FC<UsersListProps> = ({ navigation }) => {
           }}
         >
           <Avatar
-            source={{
-              uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-            }}
+            source={profileImage} // Usar imagen local
             rounded
             containerStyle={styles.avatar}
           />
@@ -99,6 +99,24 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginBottom: 20,
+    alignItems: 'center', // Centra el botón horizontalmente
+  },
+  button: {
+    backgroundColor: '#2196F3', // Color de fondo azul
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 5, // Sombra para Android
+  },
+  buttonText: {
+    color: '#fff', // Color de texto blanco
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   listItem: {
     backgroundColor: '#fff', // Fondo blanco para los elementos de la lista

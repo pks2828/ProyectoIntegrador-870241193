@@ -19,11 +19,13 @@ function MyStack() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#621FF7",
+          backgroundColor: "#bde0fe"
         },
-        headerTintColor: "#fff",
+        headerTintColor: "#023047",
         headerTitleStyle: {
-          fontWeight: "bold",
+          fontWeight: 600,
+          fontSize: 20,
+
         },
       }}
     >
@@ -58,7 +60,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f7f7f7",
     alignItems: "center",
     justifyContent: "center",
   },
