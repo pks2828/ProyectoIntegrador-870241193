@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity, Text, StyleSheet, View, ScrollView } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, View, ScrollView, ActivityIndicator } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { FirebaseFirestoreTypes } from "@react-native-firebase/firestore";
@@ -31,6 +31,7 @@ const profileImage = require('../assets/uifaces-abstract-image.jpg');
 
 const UsersListPage: React.FC<UsersListProps> = ({ navigation }) => {
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // Estado de carga
 
   useEffect(() => {
     const usersCollection = collection(db, "users");
@@ -47,11 +48,21 @@ const UsersListPage: React.FC<UsersListProps> = ({ navigation }) => {
         });
       });
       setUsers(usersList);
+      setLoading(false); // Datos cargados
     });
 
     // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#2196F3" />
+        <Text style={styles.loadingText}>Cargando usuarios...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -138,6 +149,17 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 14,
     color: '#555', // Color de texto gris medio
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#555',
   },
 });
 
