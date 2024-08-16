@@ -58,7 +58,7 @@ const LoginPage: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#e0f7fa", // Color de fondo claro
+    backgroundColor: "#f7f7f7", // Color de fondo claro
     alignItems: "center",
     justifyContent: "center",
   },
@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#00796b",
+    color: "#2196F3",
     marginBottom: 20,
     textAlign: "center",
   },
   input: {
     height: 45,
-    borderColor: "#b2dfdb",
+    borderColor: "black",
     borderWidth: 1,
     marginBottom: 16,
     paddingHorizontal: 12,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafafa",
   },
   button: {
-    backgroundColor: "#00796b",
+    backgroundColor: "#2196F3",
     paddingVertical: 12,
     borderRadius: 5,
     alignItems: "center",

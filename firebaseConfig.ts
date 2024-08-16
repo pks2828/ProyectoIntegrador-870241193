@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
-// Tu configuración de Firebase
+//configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyD7TGWOjDVjkrFZSVe5T3U3khmf5IJnC3w",
   authDomain: "pia-etapa3.firebaseapp.com",
